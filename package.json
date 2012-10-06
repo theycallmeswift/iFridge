@@ -1,0 +1,16 @@
+{
+  "name": "rfid_fridge",
+  "version": "0.0.0",
+  "description": "A fridge that tells you when shit is in and out of it",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "RFID",
+    "Fridge"
+  ],
+  "author": "Swift <swift@sendgrid.com>",
+  "license": "Beerware"
+}
