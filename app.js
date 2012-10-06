@@ -19,38 +19,44 @@ rfidserver.on('data', function(data) {
 
   var rfid = data.replace(/\n$/, '');
 
-  DB.collection('rfids', function(err, rfids) {
-    var query
-      , now = new Date()
-      , ten = new Date(now)
-      , timestamp = now.getTime();
+  if(rfid === 'connected') {
+    return util.log("Arduino sensor connected");
+  }
 
-    ten.setSeconds(now.getSeconds() - 5);
+  if(rfid.indexOf('?') === -1 && rfid.length === 10) {
+    DB.collection('rfids', function(err, rfids) {
+      var query
+        , now = new Date()
+        , ten = new Date(now)
+        , timestamp = now.getTime();
 
-    if(err) {
-      return util.error(err);
-    }
+      ten.setSeconds(now.getSeconds() - 5);
 
-    query = {
-      rfid: rfid,
-      lastUpdate: { $lte: ten.getTime() }
-    };
-
-    console.log(query);
-
-    rfids.findAndModify(query, [['_id','asc']], {$set: {lastUpdate: timestamp }}, { new: true }, function(err, object) {
-      console.log(err, object);
-      if(object) {
-        var inFridge = !object.inFridge;
-        rfids.update({ _id: object._id }, { $set: { inFridge: inFridge }}, {safe:true}, function(err) {
-          if(err) {
-            return util.error(err);
-          }
-          util.log(rfid + " ~ " + inFridge);
-        });
+      if(err) {
+        return util.error(err);
       }
+
+      query = {
+        rfid: rfid,
+        lastUpdate: { $lte: ten.getTime() }
+      };
+
+      console.log(query);
+
+      rfids.findAndModify(query, [['_id','asc']], {$set: {lastUpdate: timestamp }}, { new: true }, function(err, object) {
+        console.log(err, object);
+        if(object) {
+          var inFridge = !object.inFridge;
+          rfids.update({ _id: object._id }, { $set: { inFridge: inFridge }}, {safe:true}, function(err) {
+            if(err) {
+              return util.error(err);
+            }
+            util.log(rfid + " ~ " + inFridge);
+          });
+        }
+      });
     });
-  });
+  }
 });
 
 DB.connect(config.mongo);
@@ -58,7 +64,7 @@ DB.connect(config.mongo);
 DB.on('connected', function() {
   util.log("Connected to '" + config.mongo.database + "' database");
   DB.collection('rfids', function(err, rfids) {
-    rfids.update({ }, { $set: { lastUpdate: new Date().getTime() }, $unset: { inFridge: 1 }}, { safe: true }, function(err) {
+    rfids.update({ }, { $set: { lastUpdate: new Date().getTime() }, $unset: { inFridge: 1 }}, { safe: true, multi: true }, function(err) {
       if(err) throw err;
 
       rfidserver.listen(1337, function() {
