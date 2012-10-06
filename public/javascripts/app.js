@@ -1,40 +1,11 @@
 ;(function ($, window, undefined) {
   'use strict';
 
-  var $doc = $(document),
-      Modernizr = window.Modernizr;
+  var $doc = $(document)
+    ,  Modernizr = window.Modernizr
+    , chart;
 
-  
-  $.fn.foundationAlerts           ? $doc.foundationAlerts() : null;
-  $.fn.foundationAccordion        ? $doc.foundationAccordion() : null;
-  $.fn.foundationTooltips         ? $doc.foundationTooltips() : null;
-  $('input, textarea').placeholder();
-  
-  
-  $.fn.foundationButtons          ? $doc.foundationButtons() : null;
-  
-  
-  $.fn.foundationNavigation       ? $doc.foundationNavigation() : null;
-  
-  
-  $.fn.foundationTopBar           ? $doc.foundationTopBar() : null;
-  
-  $.fn.foundationCustomForms      ? $doc.foundationCustomForms() : null;
-  $.fn.foundationMediaQueryViewer ? $doc.foundationMediaQueryViewer() : null;
-  
-    
-    $.fn.foundationTabs             ? $doc.foundationTabs() : null;
-    
-  
-  
-    $("#featured").orbit();
-  
-
-  // UNCOMMENT THE LINE YOU WANT BELOW IF YOU WANT IE8 SUPPORT AND ARE USING .block-grids
-  // $('.block-grid.two-up>li:nth-child(2n+1)').css({clear: 'both'});
-  // $('.block-grid.three-up>li:nth-child(3n+1)').css({clear: 'both'});
-  // $('.block-grid.four-up>li:nth-child(4n+1)').css({clear: 'both'});
-  // $('.block-grid.five-up>li:nth-child(5n+1)').css({clear: 'both'});
+  $.fn.foundationAlerts ? $doc.foundationAlerts() : null;
 
   // Hide address bar on mobile devices
   if (Modernizr.touch) {
@@ -44,5 +15,63 @@
       }, 0);
     });
   }
+
+  $doc.ready(function() {
+    chart = new Highcharts.Chart({
+      chart: {
+        renderTo: 'nutrition',
+        type: 'column'
+      },
+      title: {
+        text: null
+      },
+      xAxis: {
+        categories: [
+          'Calories',
+          'Fat',
+          'Carbs',
+          'Protein',
+          'Sodium'
+        ],
+        labels: {
+          rotation: -45,
+          align: 'right',
+          style: {
+            fontSize: '13px',
+            fontFamily: 'Verdana, sans-serif'
+          }
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: null
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      series: [{
+        name: 'Amount',
+        data: [{y: 216.4,
+          color: 'black'},{y:40, color: 'green'},{y:30,color:'red'},{y:100,color:'yellow'},{y:50,color:'blue'}],
+          dataLabels: {
+          enabled: false,
+          rotation: -90,
+          color: '#FFFFFF',
+          align: 'right',
+          x: -3,
+          y: 10,
+          formatter: function() {
+            return this.y;
+          },
+          style: {
+            fontSize: '13px',
+            fontFamily: 'Verdana, sans-serif'
+          }
+        }
+      }]
+    });
+  });
 
 })(jQuery, this);
