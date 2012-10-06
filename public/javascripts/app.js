@@ -54,8 +54,8 @@
       },
       series: [{
         name: 'Amount',
-        data: [{y: 500,
-          color: '#6631bd'},{y:0, color: '#BD8368'},{y:0,color:'#D2E58B'},{y:0,color:'#24ACBD'},{y:0,color:'#85B6C4'}],
+        data: [{y: 1000,
+          color: '#6631bd'},{y:1200, color: '#BD8368'},{y:1500,color:'#D2E58B'},{y:6000,color:'#24ACBD'},{y:1000,color:'#85B6C4'}],
           dataLabels: {
           enabled: false,
           rotation: -90,
@@ -78,13 +78,22 @@
     var shelf = $("#emptyshelf");
     var socket = io.connect('/');
 
+    socket.on('locked', function(id) {
+      $('#' + id).attr('src', '/images/red_beer.svg');
+    });
+
     socket.on('insert', function (id, type) {
       console.log(arguments);
       var image = "<img id='"+id+"' style='left: 450px' src='images/"+type+".svg' />";
       shelf.append(image);
-      $('#' + id).animate({
+      var item = $('#' + id);
+      item.animate({
         left: '-=450'
       }, 500, 'swing');
+      item.click(function(event) {
+        event.preventDefault();
+        socket.emit('lock', id);
+      });
     });
 
     socket.on('remove', function (id, type) {
@@ -100,7 +109,9 @@
       else if (type == 'chocolate') {
         musicHTML = '<iframe width="0" height="0" src="http://www.youtube.com/embed/k9B_6PH4dhU?autoplay=1&start=22" frameborder="0" allowfullscreen></iframe>';
       }
-
+      else if (type == 'pretzel') {
+        musicHTML = '<iframe width="0" height="0" src="http://www.youtube.com/embed/pVlr4g5-r18?autoplay=1&start=13" frameborder="0" allowfullscreen></iframe>';
+      }
       clearTimeout(timeout);
       music.html(musicHTML);
       timeout = setTimeout(function(){ 
@@ -118,7 +129,7 @@
       calories = calories + 500;
       var fatdude = $("#fatdude");
       var fatmsg = $("#fatmsg");
-          chart.series[0].setData([{y: calories, color: '#6631bd'},{y:fat, color: '#BD8368'},{y:carbs,color:'#D2E58B'},{y:protein,color:'#24ACBD'},{y:sodium,color:'#85B6C4'}]);
+      chart.series[0].setData([{y: calories, color: 'black'},{y:fat, color: 'green'},{y:carbs,color:'red'},{y:protein,color:'yellow'},{y:sodium,color:'blue'}]);
 
       if (champagne == true) {
         fatdude.attr('src','images/drunk.svg');

@@ -26,6 +26,16 @@ app.helpers = require('./lib/helpers');
 /* Add a socket.io reference to app */
 app.io = io;
 
+app.io.sockets.on('connection', function (socket) {
+  socket.on('lock', function(rfid) {
+    app.db.collection('rfids', function(err, rfids) {
+      rfids.update({ rfid: rfid }, { $set: { protected: true }}, {safe:true}, function(err) {
+        socket.emit('locked', rfid);
+      });
+    });
+  });
+});
+
 /* Twilio setup */
 Twilio.AccountSid = config.twilio.sid;
 Twilio.AuthToken = config.twilio.token;
