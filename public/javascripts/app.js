@@ -100,9 +100,7 @@
       else if (type == 'chocolate') {
         musicHTML = '<iframe width="0" height="0" src="http://www.youtube.com/embed/k9B_6PH4dhU?autoplay=1&start=22" frameborder="0" allowfullscreen></iframe>';
       }
-      else if (type == 'pretzel') {
-        musicHTML = '<iframe width="0" height="0" src="http://www.youtube.com/embed/pVlr4g5-r18?autoplay=1&start=13" frameborder="0" allowfullscreen></iframe>';
-      }
+
       clearTimeout(timeout);
       music.html(musicHTML);
       timeout = setTimeout(function(){ 
