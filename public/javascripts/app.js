@@ -3,7 +3,8 @@
 
   var $doc = $(document)
     ,  Modernizr = window.Modernizr
-    , chart;
+    , chart
+    , timeout;
 
   $.fn.foundationAlerts ? $doc.foundationAlerts() : null;
 
@@ -104,8 +105,9 @@
       else if (type == 'pretzel') {
         musicHTML = '<iframe width="0" height="0" src="http://www.youtube.com/embed/pVlr4g5-r18?autoplay=1&start=13" frameborder="0" allowfullscreen></iframe>';
       }
+      clearTimeout(timeout);
       music.html(musicHTML);
-      setTimeout(function(){ 
+      timeout = setTimeout(function(){ 
         music.html('');
       }, 10000 );
     });
@@ -146,8 +148,9 @@
         alerttitle.fadeOut('slow');
         alert.fadeOut("slow"); 
       }, 5000 );
+      clearTimeout(timeout);
       music.html('<iframe width="0" height="0" src="http://www.youtube.com/embed/KgmO32IdwuE?autoplay=1&start=1" frameborder="0" allowfullscreen></iframe>');
-      setTimeout(function(){ 
+      timeout = setTimeout(function(){ 
         music.html('');
       }, 10000 );
     });
