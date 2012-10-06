@@ -54,8 +54,8 @@
       },
       series: [{
         name: 'Amount',
-        data: [{y: 1000,
-          color: '#6631bd'},{y:1200, color: '#BD8368'},{y:1500,color:'#D2E58B'},{y:6000,color:'#24ACBD'},{y:1000,color:'#85B6C4'}],
+data: [{y: 500,
+          color: '#6631bd'},{y:0, color: '#BD8368'},{y:0,color:'#D2E58B'},{y:0,color:'#24ACBD'},{y:0,color:'#85B6C4'}],
           dataLabels: {
           enabled: false,
           rotation: -90,
@@ -129,7 +129,7 @@
       calories = calories + 500;
       var fatdude = $("#fatdude");
       var fatmsg = $("#fatmsg");
-      chart.series[0].setData([{y: calories, color: 'black'},{y:fat, color: 'green'},{y:carbs,color:'red'},{y:protein,color:'yellow'},{y:sodium,color:'blue'}]);
+           chart.series[0].setData([{y: calories, color: '#6631bd'},{y:fat, color: '#BD8368'},{y:carbs,color:'#D2E58B'},{y:protein,color:'#24ACBD'},{y:sodium,color:'#85B6C4'}]);
 
       if (champagne == true) {
         fatdude.attr('src','images/drunk.svg');
