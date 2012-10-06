@@ -15,6 +15,11 @@
     width: 100%;
 }
 
+#fridge dd img {
+    float: left;
+    margin-left: 30px;
+}
+
 .module {
     margin-bottom: 30px !important;
 }
