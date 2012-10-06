@@ -13,11 +13,13 @@
     margin-top: 20px;
     height: 105px;
     width: 100%;
+    position: relative;
 }
 
 #fridge dd img {
     float: left;
     margin-left: 30px;
+    position: relative;
 }
 
 .module {

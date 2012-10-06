@@ -76,13 +76,23 @@
   $doc.ready(function() {
     var shelf = $("#emptyshelf");
     var socket = io.connect('/');
+
     socket.on('insert', function (id, type) {
-      image = "<img id='"+id+"' src='images/"+type+".svg' />";
-      image.appendTo(shelf).fadeIn("slow");
+      console.log(arguments);
+      var image = "<img id='"+id+"' style='left: 450px' src='images/"+type+".svg' />";
+      setTimeout(function() {
+        shelf.append(image);
+        $('#' + id).animate({
+          left: '-=450'
+        }, 500, 'swing');
+      }, 2000);
     });
+
     socket.on('remove', function (id, type) {
-      image = $("#"+id);
-      image.fadeOut("slow");
+      var image = $("#"+id);
+      image.fadeOut("slow", function() {
+        image.remove()
+      });
       var musicHTML = '';
       var music = $("#music");
       if (type == 'champagne') {
