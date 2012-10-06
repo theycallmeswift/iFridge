@@ -130,10 +130,13 @@
     });
     socket.on('protected', function(title, type) {
       var alert = $("#alert");
+      var alerttitle = $("#alerttitle");
       var music = $("#music");
       alert.html('<div class="four columns"><img src="images/'+type+'.svg" /></div><div class="eight columns"><p>Someone is trying to jack your '+title+'!</p></div>');
+      alerttitle.fadeIn('slow');
       alert.fadeIn('slow');
       setTimeout(function(){ 
+        alerttitle.fadeOut('slow');
         alert.fadeOut("slow"); 
       }, 5000 );
       music.html('<iframe width="0" height="0" src="http://www.youtube.com/embed/KgmO32IdwuE?autoplay=1&start=1" frameborder="0" allowfullscreen></iframe>');
