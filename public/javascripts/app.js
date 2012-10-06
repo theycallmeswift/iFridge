@@ -105,15 +105,19 @@
     socket.on('nutrition', function (calories,fat,carbs,protein,sodium) {
       calories = calories + 1000;
       var fatdude = $("#fatdude");
+      var fatmsg = $("#fatmsg");
       chart.series[0].setData([{y: calories, color: 'black'},{y:fat, color: 'green'},{y:carbs,color:'red'},{y:protein,color:'yellow'},{y:sodium,color:'blue'}]);
       if (calories < 1300) {
         fatdude.attr('src','images/skinny.svg');
+        fatmsg.html('You look hungry...');
       }
       else if (calories >= 1300 && calories < 1700) {
         fatdude.attr('src', 'images/man.svg');
+        fatmsg.html('Looking good!');
       }
       else {
         fatdude.attr('src', 'images/obese.svg');
+        fatmsg.html('Time to get back to the gym.');
       }
     });
     socket.on('expired', function(title, type) {
