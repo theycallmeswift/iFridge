@@ -1,0 +1,9 @@
+{
+  "mongo": {
+    "server": "localhost",
+    "port": 27017,
+    "database": "iFridge_development",
+    "username": false,
+    "password": false
+  }
+}

@@ -12,5 +12,10 @@
     "Fridge"
   ],
   "author": "Swift <swift@sendgrid.com>",
-  "license": "Beerware"
+  "license": "Beerware",
+  "dependencies": {
+    "mongodb": "~1.1.9",
+    "async": "~0.1.22",
+    "express": "~2.5.11"
+  }
 }
