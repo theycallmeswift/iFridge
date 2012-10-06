@@ -47,7 +47,7 @@ rfidserver.on('data', app.helpers.RFIDHandler);
 app.db.on('connected', function() {
   util.log("Connected to '" + config.mongo.database + "' database");
   app.db.collection('rfids', function(err, rfids) {
-    rfids.update({ }, { $set: { lastUpdate: new Date().getTime() }, $unset: { inFridge: 1 }}, { safe: true, multi: true }, function(err) {
+    rfids.update({ }, { $set: { lastUpdate: new Date().getTime() }, $unset: { inFridge: 1, protected: 1 }}, { safe: true, multi: true }, function(err) {
       if(err) throw err;
 
       rfidserver.listen(1337, function() {

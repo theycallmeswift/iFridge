@@ -114,9 +114,11 @@ data: [{y: 500,
       }
       clearTimeout(timeout);
       music.html(musicHTML);
-      timeout = setTimeout(function(){ 
-        music.html('');
-      }, 10000 );
+      if(type !== 'champagne') {
+        timeout = setTimeout(function(){ 
+          music.html('');
+        }, 10000 );
+      }
     });
     socket.on('nutrition', function (data) {
       var calories = data.calories
