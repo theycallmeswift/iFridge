@@ -31,6 +31,7 @@
 #nutrition {
     margin-top: 28px;
     border-bottom: 5px solid #30FF00;
+    height: 300px;
 }
 
 #metrics {
@@ -42,34 +43,6 @@
     width: 30px;    
     margin: 0px 10px 5px 10px;
     display: inline-block;
-}
-
-#one {
-    height: 117px;
-    background: black;
-
-}
-
-#two {
-    height: 150px;
-    background: green;
-}
-
-#three {
-    height: 20px;
-    background: red;
-
-}
-
-#four {
-    height: 250px;
-    background: blue;
-}
-
-#five {
-    height: 220px;
-    background: yellow;
-
 }
 
 #calories {
