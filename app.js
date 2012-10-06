@@ -17,13 +17,14 @@ app.get('/feed', function (req, res) {
 
 rfidserver.on('data', function(data) {
 
-  var rfid = data.replace(/\n$/, '');
+  var rfid = data.replace(/\n$/, '')
+    , REGEX = /^\w{10}$/;
 
   if(rfid === 'connected') {
     return util.log("Arduino sensor connected");
   }
 
-  if(rfid.indexOf('?') === -1 && rfid.length === 10) {
+  if(REGEX.test(rfid) && rfid.length === 10) {
     DB.collection('rfids', function(err, rfids) {
       var query
         , now = new Date()
