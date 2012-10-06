@@ -1,70 +1,32 @@
 var util = require('util')
   , express = require('express')
-  , app = express.createServer()
+  , app = module.exports = express.createServer()
   , RFIDServer = require('./lib/server')
-  , DB = require('./lib/db')
+  , env = process.env.NODE_ENV || 'development'
   , TimeStamp = require('mongodb').Timestamp
   , config = require('./config.json')
   , rfidserver = new RFIDServer();
 
 app.configure(function() {
+  app.set('env', env);
+  app.set('port', process.env.PORT || 3000);
+  app.set('config', config);
   app.use(express.static(__dirname + "/public"));
 });
 
-app.get('/feed', function (req, res) {
-  res.sendfile(__dirname + '/public/feed.html');
-});
+/* Load and connect the database */
+app.db = require('./lib/db');
+app.db.connect(config.mongo);
 
-rfidserver.on('data', function(data) {
+/* Load the helpers */
+app.helpers = require('./lib/helpers');
 
-  var rfid = data.replace(/\n$/, '')
-    , REGEX = /^\w{10}$/;
+/* RFID Handler */
+rfidserver.on('data', app.helpers.RFIDHandler);
 
-  if(rfid === 'connected') {
-    return util.log("Arduino sensor connected");
-  }
-
-  if(REGEX.test(rfid) && rfid.length === 10) {
-    DB.collection('rfids', function(err, rfids) {
-      var query
-        , now = new Date()
-        , ten = new Date(now)
-        , timestamp = now.getTime();
-
-      ten.setSeconds(now.getSeconds() - 5);
-
-      if(err) {
-        return util.error(err);
-      }
-
-      query = {
-        rfid: rfid,
-        lastUpdate: { $lte: ten.getTime() }
-      };
-
-      console.log(query);
-
-      rfids.findAndModify(query, [['_id','asc']], {$set: {lastUpdate: timestamp }}, { new: true }, function(err, object) {
-        console.log(err, object);
-        if(object) {
-          var inFridge = !object.inFridge;
-          rfids.update({ _id: object._id }, { $set: { inFridge: inFridge }}, {safe:true}, function(err) {
-            if(err) {
-              return util.error(err);
-            }
-            util.log(rfid + " ~ " + inFridge);
-          });
-        }
-      });
-    });
-  }
-});
-
-DB.connect(config.mongo);
-
-DB.on('connected', function() {
+app.db.on('connected', function() {
   util.log("Connected to '" + config.mongo.database + "' database");
-  DB.collection('rfids', function(err, rfids) {
+  app.db.collection('rfids', function(err, rfids) {
     rfids.update({ }, { $set: { lastUpdate: new Date().getTime() }, $unset: { inFridge: 1 }}, { safe: true, multi: true }, function(err) {
       if(err) throw err;
 
@@ -72,8 +34,8 @@ DB.on('connected', function() {
         util.log("TCP Server listening on port 1337");
       });
 
-      app.listen(3000, function() {
-        util.log("HTTP Server listening on port 3000");
+      app.listen(app.set('port'), function() {
+        util.log("HTTP Server listening on port " + app.set('port') + " in " + env + " mode");
       });
     });
   });
