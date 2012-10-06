@@ -25,8 +25,6 @@ rfidserver.on('data', function(rfid) {
 
     ten.setSeconds(now.getSeconds() - 5);
 
-    console.log(timestamp);
-
     if(err) {
       return util.error(err);
     }
@@ -35,6 +33,8 @@ rfidserver.on('data', function(rfid) {
       rfid: rfid,
       lastUpdate: { $lte: ten.getTime() }
     };
+
+    console.log(query);
 
     rfids.findAndModify(query, [['_id','asc']], {$set: {lastUpdate: timestamp }}, { new: true }, function(err, object) {
       console.log(err, object);
