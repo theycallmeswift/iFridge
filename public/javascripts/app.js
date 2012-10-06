@@ -53,8 +53,8 @@
       },
       series: [{
         name: 'Amount',
-        data: [{y: 216.4,
-          color: 'black'},{y:40, color: 'green'},{y:30,color:'red'},{y:100,color:'yellow'},{y:50,color:'blue'}],
+        data: [{y: 0,
+          color: 'black'},{y:0, color: 'green'},{y:0,color:'red'},{y:0,color:'yellow'},{y:0,color:'blue'}],
           dataLabels: {
           enabled: false,
           rotation: -90,
