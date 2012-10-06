@@ -104,13 +104,7 @@
 
         <h4>Nutritional Metrics:</h4>
         <div id="nutrition" class="row module">
-            <div id="metrics">
-                <div id="one" class="metric"></div>
-                <div id="two" class="metric"></div>
-                <div id="three" class="metric"></div>
-                <div id="four" class="metric"></div>
-                <div id="five" class="metric"></div>
-            </div>
+          
         </div>
 
     </div>
@@ -181,7 +175,72 @@
   
   <!-- Initialize JS Plugins -->
   <script src="javascripts/app.js"></script>
+  <script src="javascripts/highcharts.js"></script>
+  <script type="text/javascript">
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'nutrition',
+                type: 'column'
+            },
+            title: {
+                text: null
+            },
+            xAxis: {
+                categories: [
+                    'Calories',
+                    'Fat',
+                    'Carbs',
+                    'Protein',
+                    'Sodium'
 
+                ],
+                labels: {
+                    rotation: -45,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: null
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            
+                series: [{
+                name: 'Amount',
+                data: [{y: 216.4,
+                color: 'black'},{y:40, color: 'green'},{y:30,color:'red'},{y:100,color:'yellow'},{y:50,color:'blue'}],
+                dataLabels: {
+                    enabled: false,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    x: -3,
+                    y: 10,
+                    formatter: function() {
+                        return this.y;
+                    },
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    });
+    
+});
+</script>
   <script type="text/javascript">
      $(window).load(function() {
          $('#slider').orbit();
