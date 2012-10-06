@@ -55,7 +55,7 @@
       series: [{
         name: 'Amount',
         data: [{y: 1000,
-          color: 'black'},{y:0, color: 'green'},{y:0,color:'red'},{y:0,color:'yellow'},{y:0,color:'blue'}],
+          color: '#6631bd'},{y:1200, color: '#BD8368'},{y:1500,color:'#D2E58B'},{y:6000,color:'#24ACBD'},{y:1000,color:'#85B6C4'}],
           dataLabels: {
           enabled: false,
           rotation: -90,
