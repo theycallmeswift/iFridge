@@ -53,7 +53,7 @@
       },
       series: [{
         name: 'Amount',
-        data: [{y: 0,
+        data: [{y: 1000,
           color: 'black'},{y:0, color: 'green'},{y:0,color:'red'},{y:0,color:'yellow'},{y:0,color:'blue'}],
           dataLabels: {
           enabled: false,
@@ -103,8 +103,18 @@
       }, 10000 );
     });
     socket.on('nutrition', function (calories,fat,carbs,protein,sodium) {
+      calories = calories + 1000;
+      var fatdude = $("#fatdude");
       chart.series[0].setData([{y: calories, color: 'black'},{y:fat, color: 'green'},{y:carbs,color:'red'},{y:protein,color:'yellow'},{y:sodium,color:'blue'}]);
-
+      if (calories < 1300) {
+        fatdude.attr('src','images/skinny.svg');
+      }
+      else if (calories >= 1300 && calories < 1700) {
+        fatdude.attr('src', 'images/man.svg');
+      }
+      else {
+        fatdude.attr('src', 'images/obese.svg');
+      }
     });
     socket.on('expired', function(title, type) {
       var alert = $("#alert");
