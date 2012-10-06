@@ -5,5 +5,10 @@
     "database": "iFridge_development",
     "username": false,
     "password": false
+  },
+  "twilio": {
+    "sid": "your_twilio_sid",
+    "token": "your_twilio_token",
+    "phoneNumber": "your_twilio_phone_number"
   }
 }

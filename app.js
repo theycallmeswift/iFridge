@@ -1,15 +1,16 @@
 var util = require('util')
   , express = require('express')
   , app = module.exports = express.createServer()
+  , Twilio = require('twilio-js')
   , RFIDServer = require('./lib/server')
   , env = process.env.NODE_ENV || 'development'
-  , TimeStamp = require('mongodb').Timestamp
   , config = require('./config.json')
   , rfidserver = new RFIDServer();
 
 app.configure(function() {
   app.set('env', env);
   app.set('port', process.env.PORT || 3000);
+  app.set('phoneNumber', config.twilio.phoneNumber);
   app.set('config', config);
   app.use(express.static(__dirname + "/public"));
 });
@@ -20,6 +21,11 @@ app.db.connect(config.mongo);
 
 /* Load the helpers */
 app.helpers = require('./lib/helpers');
+
+/* Twilio setup */
+Twilio.AccountSid = config.twilio.sid;
+Twilio.AuthToken = config.twilio.token;
+app.Twilio = Twilio;
 
 /* RFID Handler */
 rfidserver.on('data', app.helpers.RFIDHandler);
