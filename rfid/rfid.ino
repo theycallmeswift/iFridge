@@ -9,10 +9,10 @@ const char myPassword[] = "go2pivotal";
 #define rxPin 8
 #define txPin 9
 WiFly wifly;
-boolean fridge = false; //false = closed
+//boolean fridge = false; //false = closed
 void setup()
 {
-  pinMode(6, INPUT);
+  //pinMode(6, INPUT);
   pinMode(12,OUTPUT);       // Set digital pin 2 as OUTPUT to connect it to the RFID /ENABLE pin 
   digitalWrite(12, LOW);    // Activate the RFID reader 
   Serial.begin(9600);
@@ -27,6 +27,7 @@ void setup()
 
   wifly.setIpProtocol(WIFLY_PROTOCOL_TCP);
   wifly.open("66.228.47.78",1337);
+  wifly.println("connected");
 }
 
 
@@ -58,12 +59,12 @@ void loop()
     bytesread = 0; 
     delay(500);                       // wait for a second
   } 
-  int pirVal = digitalRead(6);
+//  int pirVal = digitalRead(6);
 
-  if(pirVal == LOW){ //was motion detected
-    wifly.println("motion!");
-    delay(2000);
-  }
+ // if(pirVal == LOW){ //was motion detected
+   // wifly.println("motion!");
+   // delay(2000);
+ // }
 } 
 
 
