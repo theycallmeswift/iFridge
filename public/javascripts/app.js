@@ -91,9 +91,6 @@
       else if (type == 'chocolate') {
         musicHTML = '<iframe width="0" height="0" src="http://www.youtube.com/embed/k9B_6PH4dhU?autoplay=1&start=22" frameborder="0" allowfullscreen></iframe>';
       }
-      else if (type == 'soda') {
-        musicHTML = '<iframe width="0" height="0" src="http://www.youtube.com/embed/Q8H5263jCGg?autoplay=1&start=1" frameborder="0" allowfullscreen></iframe>';
-      }
       else if (type == 'pretzel') {
         musicHTML = '<iframe width="0" height="0" src="http://www.youtube.com/embed/pVlr4g5-r18?autoplay=1&start=13" frameborder="0" allowfullscreen></iframe>';
       }
