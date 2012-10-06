@@ -1,12 +1,27 @@
 var Server = require('./lib/server')
-  , server = new Server();
+  , express = require('express')
+  , app = express.createServer()
+  , rfidServer = new Server();
 
-server.on('listening', function() {
+
+app.listen(8080);
+
+app.use(express.static(__dirname + "/public"));
+
+app.get('/', function (req, res) {
+    res.sendfile(__dirname + '/public/index.html');
+});
+
+app.get('/feed', function (req, res) {
+    res.sendfile(__dirname + '/public/feed.html');
+});
+
+rfidServer.on('listening', function() {
   console.log('Listening');
 });
 
-server.on('data', function(data) {
+rfidServer.on('data', function(data) {
   console.log("Data: ", data);
 });
 
-server.listen(1337);
+rfidServer.listen(1337);

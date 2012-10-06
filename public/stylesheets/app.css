@@ -1,0 +1,96 @@
+/* Artfully masterminded by ZURB  */
+
+/* -------------------------------------------------- 
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: Page Name 1
+:: Page Name 2
+*/
+
+#fridge dd {
+    border-bottom: 4px solid black;
+    margin-top: 20px;
+    height: 105px;
+    width: 100%;
+}
+
+.module {
+    margin-bottom: 30px !important;
+}
+
+#alert {
+    border-bottom: 5px solid #FF0027;
+}
+
+#nutrition {
+    margin-top: 28px;
+    border-bottom: 5px solid #30FF00;
+}
+
+#metrics {
+    width: 270px;
+    margin: 0 auto;
+}
+
+.metric {
+    width: 30px;    
+    margin: 0px 10px 5px 10px;
+    display: inline-block;
+}
+
+#one {
+    height: 117px;
+    background: black;
+
+}
+
+#two {
+    height: 150px;
+    background: green;
+}
+
+#three {
+    height: 20px;
+    background: red;
+
+}
+
+#four {
+    height: 250px;
+    background: blue;
+}
+
+#five {
+    height: 220px;
+    background: yellow;
+
+}
+
+#calories {
+    border-bottom: 5px solid #2EE5FF;
+    padding-bottom: 10px;
+}
+
+#calories img {
+    height: 75px; /* it's bigger for some reason */
+}
+
+/* -----------------------------------------
+   Shared Styles
+----------------------------------------- */
+
+
+
+/* -----------------------------------------
+   Page Name 1
+----------------------------------------- */
+
+
+
+
+/* -----------------------------------------
+   Page Name 2
+----------------------------------------- */
+
+
