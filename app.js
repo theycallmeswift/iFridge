@@ -15,7 +15,9 @@ app.get('/feed', function (req, res) {
   res.sendfile(__dirname + '/public/feed.html');
 });
 
-rfidserver.on('data', function(rfid) {
+rfidserver.on('data', function(data) {
+
+  var rfid = data.replace(/\n$/, '');
 
   DB.collection('rfids', function(err, rfids) {
     var query
