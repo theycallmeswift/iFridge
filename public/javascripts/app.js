@@ -81,12 +81,10 @@
     socket.on('insert', function (id, type) {
       console.log(arguments);
       var image = "<img id='"+id+"' style='left: 450px' src='images/"+type+".svg' />";
-      setTimeout(function() {
-        shelf.append(image);
-        $('#' + id).animate({
-          left: '-=450'
-        }, 500, 'swing');
-      }, 2000);
+      shelf.append(image);
+      $('#' + id).animate({
+        left: '-=450'
+      }, 500, 'swing');
     });
 
     socket.on('remove', function (id, type) {
@@ -111,20 +109,28 @@
         music.html('');
       }, 10000 );
     });
-    socket.on('nutrition', function (calories,fat,carbs,protein,sodium, champagne = false) {
-      calories = calories + 1000;
+    socket.on('nutrition', function (data) {
+      var calories = data.calories
+        , fat = data.fat
+        , carbs = data.carbs
+        , protein = data.protein
+        , sodium = data.sodium
+        , champagne = data.champagne;
+
+      calories = calories + 500;
       var fatdude = $("#fatdude");
       var fatmsg = $("#fatmsg");
       chart.series[0].setData([{y: calories, color: 'black'},{y:fat, color: 'green'},{y:carbs,color:'red'},{y:protein,color:'yellow'},{y:sodium,color:'blue'}]);
+
       if (champagne == true) {
         fatdude.attr('src','images/drunk.svg');
         fatmsg.html('Time to get CRUNKED!');
       }
-      else if (calories < 1300) {
+      else if (calories < 800) {
         fatdude.attr('src','images/skinny.svg');
         fatmsg.html('You look hungry...');
       }
-      else if (calories >= 1300 && calories < 1700) {
+      else if (calories >= 800 && calories < 1200) {
         fatdude.attr('src', 'images/man.svg');
         fatmsg.html('Looking good!');
       }
