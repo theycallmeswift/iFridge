@@ -27,7 +27,7 @@ void setup()
 
   wifly.setIpProtocol(WIFLY_PROTOCOL_TCP);
   wifly.open("66.228.47.78",1337);
-  wifly.println("connected");
+  wifly.print("connected");
 }
 
 
@@ -53,7 +53,7 @@ void loop()
 
     if(bytesread == 10)
     {
-      wifly.println(code);
+      wifly.print(code);
 
     }
     bytesread = 0; 
