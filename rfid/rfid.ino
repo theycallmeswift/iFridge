@@ -4,8 +4,8 @@
 int  val = 0; 
 char code[10]; 
 int bytesread = 0; 
-const char mySSID[] = "Pivotal$Guest"; //use $ to represent spaces in your ssid or passphrase
-const char myPassword[] = "go2pivotal";
+const char mySSID[] = "your_wifi_ssid"; //use $ to represent spaces in your ssid or passphrase
+const char myPassword[] = "your_wifi_password";
 #define rxPin 8
 #define txPin 9
 WiFly wifly;
